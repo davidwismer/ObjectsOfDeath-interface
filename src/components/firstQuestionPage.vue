@@ -109,7 +109,7 @@ watchEffect(() => {
             <span class="required">* Obligatoire</span>
         </div>
         <div class="buttonContainer">
-            <base-button :class="deactivateButton ? 'deactivated' : ''" @click="changePage()"><img class="button-img"
+            <base-button :disabled="deactivateButton" @click="changePage()"><img class="button-img"
                     src="../assets/fleche.png" />Suivant</base-button>
         </div>
     </div>
@@ -143,7 +143,7 @@ watchEffect(() => {
             <span class="required">* Required</span>
         </div>
         <div class="buttonContainer">
-            <base-button :class="deactivateButton ? 'deactivated' : ''" @click="changePage()"><img class="button-img" src="../assets/fleche.png" />Next</base-button>
+            <base-button :disabled="deactivateButton" @click="changePage()"><img class="button-img" src="../assets/fleche.png" />Next</base-button>
         </div>
     </div>
 </template>
@@ -224,9 +224,5 @@ span {
     font-size: 12pt;
     width: 60%;
     overflow-wrap: break-word;
-}
-
-.deactivated {
-    pointer-events: none;
 }
 </style>
