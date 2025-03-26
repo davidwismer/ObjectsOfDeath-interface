@@ -79,7 +79,7 @@ function togglePopUp(){
 
 <template>
     <div v-if="props.lang == 'fr'" class="contentContainer">
-        <div class="questionContainer" :style="'height:68px;'">
+        <div class="questionContainer">
             <div v-show="showQuestionBox" class="questionPopUp" :style="'width:235px;'">En supposant qu’il y a quelque chose
                 après la vie, et que tu ne peux y apporter
                 qu’une chose que tu possèdes déjà,
@@ -119,7 +119,7 @@ function togglePopUp(){
         </div>
     </div>
     <div v-else-if="props.lang == 'en'" class="contentContainer">
-        <div class="questionContainer" :style="'height:68px;'">
+        <div class="questionContainer">
             <div v-show="showQuestionBox" class="questionPopUp" :style="'width:180px;'">Assuming there’s something
                 after life, and you can only
                 bring one thing you already
@@ -253,5 +253,6 @@ span {
 .questionContainer {
     display: flex;
     justify-content: end;
+    height: 75px;
 }
 </style>

@@ -74,7 +74,7 @@ function togglePopUp(){
 
 <template>
     <div v-if="props.lang == 'fr'">
-        <div class="questionContainer" :style="'height:68px;'">
+        <div class="questionContainer">
             <div v-show="showQuestionBox" class="questionPopUp" :style="'width:170px;'">Quel est l’objet qui te définit
                 le plus et qui apparaîtra
                 quand les vivants se
@@ -114,7 +114,7 @@ function togglePopUp(){
         </div>
     </div>
     <div v-else-if="props.lang == 'en'">
-        <div class="questionContainer" :style="'height:68px;'">
+        <div class="questionContainer">
             <div v-show="showQuestionBox" class="questionPopUp" :style="'width:170px;'">What is the object that
                 defines you the most and
                 that will appear when the
@@ -248,5 +248,6 @@ span {
 .questionContainer {
     display: flex;
     justify-content: end;
+    height: 75px;
 }
 </style>
