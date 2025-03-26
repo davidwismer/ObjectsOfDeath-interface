@@ -71,16 +71,21 @@ async function changePage() {
     }
 }
 
-watchEffect(() => {
-    console.log(answer.value)
-    console.log(comment.value)
-    console.log(image.value)
-})
+const showQuestionBox = ref(false)
+function togglePopUp(){
+    showQuestionBox.value = !showQuestionBox.value
+}
 </script>
 
 <template>
     <div v-if="props.lang == 'fr'" class="contentContainer">
-        <h3>« Quel objet apporterai-tu dans la mort ? »</h3>
+        <div class="questionContainer" :style="'height:68px;'">
+            <div v-show="showQuestionBox" class="questionPopUp" :style="'width:235px;'">En supposant qu’il y a quelque chose
+                après la vie, et que tu ne peux y apporter
+                qu’une chose que tu possèdes déjà,
+                qu’est-ce que ça serait ?</div>
+        </div>
+        <h3 @click="togglePopUp()">« Quel objet apporterai-tu dans la mort ? »</h3>
         <div class="fieldsContainer">
             <div class="fieldContainer">
                 <span class="fieldLabel">Réponse * :</span>
@@ -114,7 +119,13 @@ watchEffect(() => {
         </div>
     </div>
     <div v-else-if="props.lang == 'en'" class="contentContainer">
-        <h3>“What object would you bring into death?”</h3>
+        <div class="questionContainer" :style="'height:68px;'">
+            <div v-show="showQuestionBox" class="questionPopUp" :style="'width:180px;'">Assuming there’s something
+                after life, and you can only
+                bring one thing you already
+                have, what would it be?</div>
+        </div>
+        <h3 @click="togglePopUp()">“What object would you bring into death?”</h3>
         <div class="fieldsContainer">
             <div class="fieldContainer">
                 <span class="fieldLabel">Answer*:</span>
@@ -143,7 +154,8 @@ watchEffect(() => {
             <span class="required">* Required</span>
         </div>
         <div class="buttonContainer">
-            <base-button :disabled="deactivateButton" @click="changePage()"><img class="button-img" src="../assets/fleche.png" />Next</base-button>
+            <base-button :disabled="deactivateButton" @click="changePage()"><img class="button-img"
+                    src="../assets/fleche.png" />Next</base-button>
         </div>
     </div>
 </template>
@@ -157,6 +169,7 @@ h3 {
     font-family: "MNKYKoko-medium";
     font-size: 15pt;
     margin-bottom: 30px;
+    cursor: pointer;
 }
 
 span {
@@ -224,5 +237,21 @@ span {
     font-size: 12pt;
     width: 60%;
     overflow-wrap: break-word;
+}
+
+.questionPopUp {
+    border: 1pt solid rgba(0, 0, 0, .3);
+    background-color: rgba(0, 0, 0, .1);
+    border-radius: 1pt;
+    font-size: 9pt;
+    font-family: "MNKYKoko-Regular";
+    margin-bottom: 5px;
+    text-align: justify;
+    padding: 3px;
+}
+
+.questionContainer {
+    display: flex;
+    justify-content: end;
 }
 </style>

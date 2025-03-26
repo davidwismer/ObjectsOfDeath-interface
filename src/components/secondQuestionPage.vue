@@ -66,16 +66,21 @@ async function changePage() {
     }
 }
 
-watchEffect(() => {
-    console.log(answer.value)
-    console.log(comment.value)
-    console.log(image.value)
-})
+const showQuestionBox = ref(false)
+function togglePopUp(){
+    showQuestionBox.value = !showQuestionBox.value
+}
 </script>
 
 <template>
     <div v-if="props.lang == 'fr'">
-        <h3>« Par quel objet se souviendra-t-on de toi après ta mort ? »</h3>
+        <div class="questionContainer" :style="'height:68px;'">
+            <div v-show="showQuestionBox" class="questionPopUp" :style="'width:170px;'">Quel est l’objet qui te définit
+                le plus et qui apparaîtra
+                quand les vivants se
+                souviendront de toi ?</div>
+        </div>
+        <h3 @click="togglePopUp()">« Par quel objet se souviendra-t-on de toi après ta mort ? »</h3>
         <div class="fieldsContainer">
             <div class="fieldContainer">
                 <span class="fieldLabel">Réponse * :</span>
@@ -96,7 +101,8 @@ watchEffect(() => {
             </div>
             <div class="fieldContainer">
                 <span class="fieldLabel">Commentaire :</span>
-                <baseInput :maxlength="500" :modelValue="comment" @update:modelValue="$event => (comment = $event)"></baseInput>
+                <baseInput :maxlength="500" :modelValue="comment" @update:modelValue="$event => (comment = $event)">
+                </baseInput>
             </div>
         </div>
         <div class="requiredContainer">
@@ -108,7 +114,13 @@ watchEffect(() => {
         </div>
     </div>
     <div v-else-if="props.lang == 'en'">
-        <h3>“Which object will be chosen to remember you after your death?”</h3>
+        <div class="questionContainer" :style="'height:68px;'">
+            <div v-show="showQuestionBox" class="questionPopUp" :style="'width:170px;'">What is the object that
+                defines you the most and
+                that will appear when the
+                living remember you?</div>
+        </div>
+        <h3 @click="togglePopUp()">“Which object will be chosen to remember you after your death?”</h3>
         <div class="fieldsContainer">
             <div class="fieldContainer">
                 <span class="fieldLabel">Answer*:</span>
@@ -129,7 +141,8 @@ watchEffect(() => {
             </div>
             <div class="fieldContainer">
                 <span class="fieldLabel">Comment:</span>
-                <baseInput :maxlength="500" :modelValue="comment" @update:modelValue="$event => (comment = $event)"></baseInput>
+                <baseInput :maxlength="500" :modelValue="comment" @update:modelValue="$event => (comment = $event)">
+                </baseInput>
             </div>
         </div>
         <div class="requiredContainer">
@@ -146,10 +159,12 @@ watchEffect(() => {
 input[type="file"] {
     display: none;
 }
+
 h3 {
     font-family: "MNKYKoko-medium";
     font-size: 15pt;
     margin-bottom: 30px;
+    cursor: pointer;
 }
 
 span {
@@ -217,5 +232,21 @@ span {
     font-size: 12pt;
     width: 60%;
     overflow-wrap: break-word;
+}
+
+.questionPopUp {
+    border: 1pt solid rgba(0, 0, 0, .3);
+    background-color: rgba(0, 0, 0, .1);
+    border-radius: 1pt;
+    font-size: 9pt;
+    font-family: "MNKYKoko-Regular";
+    margin-bottom: 5px;
+    text-align: justify;
+    padding: 3px;
+}
+
+.questionContainer {
+    display: flex;
+    justify-content: end;
 }
 </style>
