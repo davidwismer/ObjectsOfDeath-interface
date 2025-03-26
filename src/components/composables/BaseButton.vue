@@ -27,5 +27,6 @@ button {
     justify-content: center;
     gap: 5px;
     cursor: pointer;
+    font-family: "MNKYKoko-Regular";
 }
 </style>
