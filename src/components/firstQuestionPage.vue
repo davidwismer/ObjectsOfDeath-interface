@@ -39,8 +39,10 @@ function fileHandler(e) {
 
 }
 
+const deactivateButton = ref(false)
 async function changePage() {
     if (answer.value !== "") {
+        deactivateButton.value = true
         const answerParams = {
             questionNumber: questionNumber,
             answer: answer.value,
@@ -65,6 +67,7 @@ async function changePage() {
         } catch (error) {
             return console.log(error)
         }
+        deactivateButton.value = false
     }
 }
 
@@ -106,7 +109,7 @@ watchEffect(() => {
             <span class="required">* Obligatoire</span>
         </div>
         <div class="buttonContainer">
-            <base-button @click="changePage()"><img class="button-img"
+            <base-button :class="deactivateButton ? 'deactivated' : ''" @click="changePage()"><img class="button-img"
                     src="../assets/fleche.png" />Suivant</base-button>
         </div>
     </div>
@@ -140,7 +143,7 @@ watchEffect(() => {
             <span class="required">* Required</span>
         </div>
         <div class="buttonContainer">
-            <base-button @click="changePage()"><img class="button-img" src="../assets/fleche.png" />Next</base-button>
+            <base-button :class="deactivateButton ? 'deactivated' : ''" @click="changePage()"><img class="button-img" src="../assets/fleche.png" />Next</base-button>
         </div>
     </div>
 </template>
@@ -221,5 +224,9 @@ span {
     font-size: 12pt;
     width: 60%;
     overflow-wrap: break-word;
+}
+
+.deactivated {
+    pointer-events: none;
 }
 </style>
