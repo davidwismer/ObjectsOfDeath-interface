@@ -75,7 +75,7 @@ function togglePopUp(){
 <template>
     <div v-if="props.lang == 'fr'">
         <div class="questionContainer">
-            <div :class="showQuestionBox ? 'hidden' : ''" class="questionPopUp" :style="'width:170px;'">Quel est l’objet qui te définit
+            <div :class="!showQuestionBox ? 'hidden' : ''" class="questionPopUp" :style="'width:170px;'">Quel est l’objet qui te définit
                 le plus et qui apparaîtra
                 quand les vivants se
                 souviendront de toi ?</div>
@@ -115,7 +115,7 @@ function togglePopUp(){
     </div>
     <div v-else-if="props.lang == 'en'">
         <div class="questionContainer">
-            <div :class="showQuestionBox ? 'hidden' : ''" class="questionPopUp" :style="'width:170px;'">What is the object that
+            <div :class="!showQuestionBox ? 'hidden' : ''" class="questionPopUp" :style="'width:170px;'">What is the object that
                 defines you the most and
                 that will appear when the
                 living remember you?</div>
