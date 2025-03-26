@@ -1,0 +1,29 @@
+@import './base.css';
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+main {
+  padding: 50px 10%;
+  height: 100%;
+}
+
+@media (min-width: 900px){
+  main {
+    padding: 50px 30%;
+  }
+}
+
+body {
+  height: 100dvh;
+  width: 100dvw;
+  color: black;
+  background-color: white;
+}
+
+#app {
+  height: 100%;
+  width: 100%;
+}
