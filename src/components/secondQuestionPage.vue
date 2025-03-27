@@ -80,7 +80,7 @@ function togglePopUp(){
                 quand les vivants se
                 souviendront de toi ?</div>
         </div>
-        <h3 @click="togglePopUp()">« Par quel objet se souviendra-t-on de toi après ta mort ? »</h3>
+        <h3>« Par quel objet se souviendra-t-on de toi après ta mort ? » <span @click="togglePopUp()" class="infoCircle">i</span></h3>
         <div class="fieldsContainer">
             <div class="fieldContainer">
                 <span class="fieldLabel">Réponse * :</span>
@@ -120,7 +120,7 @@ function togglePopUp(){
                 that will appear when the
                 living remember you?</div>
         </div>
-        <h3 @click="togglePopUp()">“Which object will be chosen to remember you after your death?”</h3>
+        <h3>“Which object will be chosen to remember you after your death?” <span @click="togglePopUp()" class="infoCircle">i</span></h3>
         <div class="fieldsContainer">
             <div class="fieldContainer">
                 <span class="fieldLabel">Answer*:</span>
@@ -252,5 +252,19 @@ span {
 .questionContainer {
     display: flex;
     justify-content: end;
+}
+
+.infoCircle {
+    display: inline-flex;
+    justify-content: center;
+    margin-left: 10px;
+    border: 1pt solid rgba(0, 0, 0, .3);
+    background-color: rgba(0, 0, 0, .1);
+    color: rgba(0, 0, 0, .3);
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    text-align: center;
 }
 </style>
