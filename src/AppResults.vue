@@ -4,14 +4,16 @@ import { ref, onMounted, watchEffect } from 'vue';
 import { getAllAnswersPerQuestion } from './utils';
 
 const apiURL = 'https://objectsofdeath-api2.onrender.com/'
+const apiURL2 = 'https://objectsofdeath-api3.onrender.com/'
+const apiURL3 = 'https://objectsofdeath-api4.onrender.com/'
 /* const apiURL = 'http://localhost:3000/' */
 
 
 const answersQuestion1 = ref()
 const answersQuestion2 = ref()
 async function getAnswers() {
-    answersQuestion1.value = await getAllAnswersPerQuestion(apiURL, 1)
-    answersQuestion2.value = await getAllAnswersPerQuestion(apiURL, 2)
+    answersQuestion1.value = await getAllAnswersPerQuestion(apiURL, apiURL2, apiURL3, 1)
+    answersQuestion2.value = await getAllAnswersPerQuestion(apiURL, apiURL2, apiURL3, 2)
 }
 onMounted(async () => {
     getAnswers()

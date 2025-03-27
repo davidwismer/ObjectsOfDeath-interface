@@ -6,7 +6,9 @@ import secondQuestionPageVue from './components/secondQuestionPage.vue';
 import thanksPageVue from './components/thanksPage.vue';
 import welcomePageVue from './components/welcomePage.vue';
 
-const apiURL = 'https://objectsofdeath-api2.onrender.com/'
+const apiURL = "https://objectsofdeath-api2.onrender.com/"
+const apiURL2 = "https://objectsofdeath-api3.onrender.com/"
+const apiURL3 = "https://objectsofdeath-api4.onrender.com/"
 //const apiURL = 'http://localhost:3000/'
 
 const actualPage = ref(1)
@@ -37,8 +39,8 @@ window.onbeforeunload = function(){
       <span class="maxPage number">2</span>
     </div>
     <welcomePageVue v-if="actualPage == 1" :lang="language" @change-page="manageButton()"></welcomePageVue>
-    <firstQuestionPageVue v-if="actualPage == 2" :lang="language" :apiURL="apiURL" @change-page="manageButton()"></firstQuestionPageVue>
-    <secondQuestionPageVue v-if="actualPage == 3" :lang="language" :apiURL="apiURL" @change-page="manageButton()">
+    <firstQuestionPageVue v-if="actualPage == 2" :lang="language" :apiURL="apiURL" :apiURL2="apiURL2" :apiURL3="apiURL3" @change-page="manageButton()"></firstQuestionPageVue>
+    <secondQuestionPageVue v-if="actualPage == 3" :lang="language" :apiURL="apiURL" :apiURL2="apiURL2" :apiURL3="apiURL3" @change-page="manageButton()">
     </secondQuestionPageVue>
     <thanksPageVue v-if="actualPage == 4" :lang="language"></thanksPageVue>
   </main>

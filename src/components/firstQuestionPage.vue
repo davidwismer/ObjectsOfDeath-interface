@@ -10,6 +10,12 @@ const props = defineProps({
     },
     apiURL: {
         type: String
+    },
+    apiURL2: {
+        type: String
+    },
+    apiURL3: {
+        type: String
     }
 })
 
@@ -64,14 +70,46 @@ async function changePage() {
                     emit('changePage')
                 });
         } catch (error) {
-            return console.log(error)
+            try {
+                await fetch(`${props.apiURL2}answers`,
+                    {
+                        method: "POST",
+                        body: JSON
+                            .stringify(answerParams),
+                        headers: {
+                            "Content-type": "application/json",
+                        },
+                    })
+                    .then((response) => response.json())
+                    .then(async (json) => {
+                        emit('changePage')
+                    });
+            } catch (error) {
+                try {
+                    await fetch(`${props.apiURL3}answers`,
+                        {
+                            method: "POST",
+                            body: JSON
+                                .stringify(answerParams),
+                            headers: {
+                                "Content-type": "application/json",
+                            },
+                        })
+                        .then((response) => response.json())
+                        .then(async (json) => {
+                            emit('changePage')
+                        });
+                } catch (error) {
+                    return console.log(error)
+                }
+            }
         }
         deactivateButton.value = false
     }
 }
 
 const showQuestionBox = ref(false)
-function togglePopUp(){
+function togglePopUp() {
     showQuestionBox.value = !showQuestionBox.value
 }
 </script>
@@ -79,7 +117,8 @@ function togglePopUp(){
 <template>
     <div v-if="props.lang == 'fr'" class="contentContainer">
         <div class="questionContainer">
-            <div :class="!showQuestionBox ? 'hidden' : ''" class="questionPopUp" :style="'width:235px;'">En supposant qu’il y a quelque chose
+            <div :class="!showQuestionBox ? 'hidden' : ''" class="questionPopUp" :style="'width:235px;'">En supposant
+                qu’il y a quelque chose
                 après la vie, et que tu ne peux y apporter
                 qu’une chose que tu possèdes déjà,
                 qu’est-ce que ça serait ?</div>
@@ -119,7 +158,8 @@ function togglePopUp(){
     </div>
     <div v-else-if="props.lang == 'en'" class="contentContainer">
         <div class="questionContainer">
-            <div :class="!showQuestionBox ? 'hidden' : ''" class="questionPopUp" :style="'width:180px;'">Assuming there’s something
+            <div :class="!showQuestionBox ? 'hidden' : ''" class="questionPopUp" :style="'width:180px;'">Assuming
+                there’s something
                 after life, and you can only
                 bring one thing you already
                 have, what would it be?</div>

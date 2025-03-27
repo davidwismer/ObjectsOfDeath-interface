@@ -10,6 +10,12 @@ const props = defineProps({
     },
     apiURL: {
         type: String
+    },
+    apiURL2: {
+        type: String
+    },
+    apiURL3: {
+        type: String
     }
 })
 
@@ -63,14 +69,46 @@ async function changePage() {
                     emit('changePage')
                 });
         } catch (error) {
-            return console.log(error)
+            try {
+                await fetch(`${props.apiURL2}answers`,
+                    {
+                        method: "POST",
+                        body: JSON
+                            .stringify(answerParams),
+                        headers: {
+                            "Content-type": "application/json",
+                        },
+                    })
+                    .then((response) => response.json())
+                    .then(async (json) => {
+                        emit('changePage')
+                    });
+            } catch (error) {
+                try {
+                    await fetch(`${props.apiURL3}answers`,
+                        {
+                            method: "POST",
+                            body: JSON
+                                .stringify(answerParams),
+                            headers: {
+                                "Content-type": "application/json",
+                            },
+                        })
+                        .then((response) => response.json())
+                        .then(async (json) => {
+                            emit('changePage')
+                        });
+                } catch (error) {
+                    return console.log(error)
+                }
+            }
         }
         deactivateButton.value = false
     }
 }
 
 const showQuestionBox = ref(false)
-function togglePopUp(){
+function togglePopUp() {
     showQuestionBox.value = !showQuestionBox.value
 }
 </script>
@@ -78,12 +116,14 @@ function togglePopUp(){
 <template>
     <div v-if="props.lang == 'fr'">
         <div class="questionContainer">
-            <div :class="!showQuestionBox ? 'hidden' : ''" class="questionPopUp" :style="'width:170px;'">Quel est l’objet qui te définit
+            <div :class="!showQuestionBox ? 'hidden' : ''" class="questionPopUp" :style="'width:170px;'">Quel est
+                l’objet qui te définit
                 le plus et qui apparaîtra
                 quand les vivants se
                 souviendront de toi ?</div>
         </div>
-        <h3>« Par quel objet se souviendra-t-on de toi après ta mort ? » <span @click="togglePopUp()" class="infoCircle">i</span></h3>
+        <h3>« Par quel objet se souviendra-t-on de toi après ta mort ? » <span @click="togglePopUp()"
+                class="infoCircle">i</span></h3>
         <div class="fieldsContainer">
             <div class="fieldContainer">
                 <span class="fieldLabel">Réponse * :</span>
@@ -118,12 +158,14 @@ function togglePopUp(){
     </div>
     <div v-else-if="props.lang == 'en'">
         <div class="questionContainer">
-            <div :class="!showQuestionBox ? 'hidden' : ''" class="questionPopUp" :style="'width:170px;'">What is the object that
+            <div :class="!showQuestionBox ? 'hidden' : ''" class="questionPopUp" :style="'width:170px;'">What is the
+                object that
                 defines you the most and
                 that will appear when the
                 living remember you?</div>
         </div>
-        <h3>“Which object will be chosen to remember you after your death?” <span @click="togglePopUp()" class="infoCircle">i</span></h3>
+        <h3>“Which object will be chosen to remember you after your death?” <span @click="togglePopUp()"
+                class="infoCircle">i</span></h3>
         <div class="fieldsContainer">
             <div class="fieldContainer">
                 <span class="fieldLabel">Answer*:</span>
