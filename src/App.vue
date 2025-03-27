@@ -6,8 +6,8 @@ import secondQuestionPageVue from './components/secondQuestionPage.vue';
 import thanksPageVue from './components/thanksPage.vue';
 import welcomePageVue from './components/welcomePage.vue';
 
-//const apiURL = 'https://objectsofdeath-api.onrender.com/'
-const apiURL = 'http://localhost:3000/'
+const apiURL = 'https://objectsofdeath-api2.onrender.com/'
+//const apiURL = 'http://localhost:3000/'
 
 const actualPage = ref(1)
 const language = ref("fr")

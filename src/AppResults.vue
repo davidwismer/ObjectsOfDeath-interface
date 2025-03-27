@@ -3,7 +3,7 @@ import { ref, onMounted, watchEffect } from 'vue';
 
 import { getAllAnswersPerQuestion } from './utils';
 
-const apiURL = 'https://objectsofdeath-api.onrender.com/'
+const apiURL = 'https://objectsofdeath-api2.onrender.com/'
 /* const apiURL = 'http://localhost:3000/' */
 
 
