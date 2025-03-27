@@ -85,7 +85,7 @@ function togglePopUp(){
                 qu’une chose que tu possèdes déjà,
                 qu’est-ce que ça serait ?</div>
         </div>
-        <h3 @click="togglePopUp()">« Quel objet apporterai-tu dans la mort ? »</h3>
+        <h3>« Quel objet apporterai-tu dans la mort ? » <span @click="togglePopUp()" class="infoCircle">i</span></h3>
         <div class="fieldsContainer">
             <div class="fieldContainer">
                 <span class="fieldLabel">Réponse * :</span>
@@ -125,7 +125,7 @@ function togglePopUp(){
                 bring one thing you already
                 have, what would it be?</div>
         </div>
-        <h3 @click="togglePopUp()">“What object would you bring into death?”</h3>
+        <h3>“What object would you bring into death?” <span @click="togglePopUp()" class="infoCircle">i</span></h3>
         <div class="fieldsContainer">
             <div class="fieldContainer">
                 <span class="fieldLabel">Answer*:</span>
@@ -169,7 +169,6 @@ h3 {
     font-family: "MNKYKoko-medium";
     font-size: 15pt;
     margin-bottom: 30px;
-    cursor: pointer;
 }
 
 span {
@@ -257,5 +256,19 @@ span {
 .questionContainer {
     display: flex;
     justify-content: end;
+}
+
+.infoCircle {
+    display: inline-flex;
+    justify-content: center;
+    margin-left: 10px;
+    border: 1pt solid rgba(0, 0, 0, .3);
+    background-color: rgba(0, 0, 0, .1);
+    color: rgba(0, 0, 0, .3);
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    text-align: center;
 }
 </style>
