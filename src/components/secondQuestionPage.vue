@@ -167,7 +167,6 @@ h3 {
     font-family: "MNKYKoko-medium";
     font-size: 15pt;
     margin-bottom: 30px;
-    cursor: pointer;
 }
 
 span {

@@ -1,13 +1,13 @@
 <script setup>
 import { ref, computed, onMounted, watchEffect } from 'vue';
 
-import { getAllAnswers } from './utils';
 import firstQuestionPageVue from './components/firstQuestionPage.vue';
 import secondQuestionPageVue from './components/secondQuestionPage.vue';
 import thanksPageVue from './components/thanksPage.vue';
 import welcomePageVue from './components/welcomePage.vue';
 
-const apiURL = 'https://objectsofdeath-api.onrender.com/'
+//const apiURL = 'https://objectsofdeath-api.onrender.com/'
+const apiURL = 'http://localhost:3000/'
 
 const actualPage = ref(1)
 const language = ref("fr")
@@ -24,7 +24,6 @@ function manageButton() {
 window.onbeforeunload = function(){
     return "Vous perdrez vos réponses si vous rechargez la page";
 }
-
 </script>
 
 <template>
