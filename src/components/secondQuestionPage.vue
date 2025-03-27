@@ -37,8 +37,10 @@ function fileHandler(e) {
     reader.readAsDataURL(image.value);
 }
 
+const deactivateButton = ref(false)
 async function changePage() {
     if (answer.value !== "") {
+        deactivateButton.value = true
         const answerParams = {
             questionNumber: questionNumber,
             answer: answer.value,
@@ -63,6 +65,7 @@ async function changePage() {
         } catch (error) {
             return console.log(error)
         }
+        deactivateButton.value = false
     }
 }
 

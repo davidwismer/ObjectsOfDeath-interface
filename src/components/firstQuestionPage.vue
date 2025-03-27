@@ -49,7 +49,6 @@ async function changePage() {
             comment: comment.value,
             image: image.value
         }
-        console.log(answerParams)
         try {
             await fetch(`${props.apiURL}answers`,
                 {
