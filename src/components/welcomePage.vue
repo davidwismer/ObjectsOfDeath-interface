@@ -33,8 +33,10 @@ const emit = defineEmits(["changePage"])
                 nécessaires pour les partager dans ce contexte.</div>
         </div>
         <div class="buttonContainer">
+            <a href="#results"><base-button>
+                Voir les réponses</base-button></a>
             <base-button @click="emit('changePage')"><img class="button-img" src="../assets/fleche.png" />
-                Commencer</base-button>
+                Répondre</base-button>
         </div>
 
     </div>
@@ -54,8 +56,10 @@ const emit = defineEmits(["changePage"])
                 or that you have obtained the necessary rights to share them in this context.</div>
         </div>
         <div class="buttonContainer">
+            <a href="#results"><base-button>
+                See answers</base-button></a>
             <base-button @click="emit('changePage')"><img class="button-img" src="../assets/fleche.png" />
-                Start</base-button>
+                Answer</base-button>
         </div>
     </div>
 </template>
@@ -77,7 +81,7 @@ const emit = defineEmits(["changePage"])
 
 .buttonContainer {
     display: flex;
-    justify-content: end;
+    justify-content: space-between;
     margin-top: 10px;
 }
 
@@ -92,5 +96,13 @@ h3 {
 .button-img {
     transform: rotate(90deg);
     height: 5mm;
+}
+
+@media (max-width: 500px){
+.buttonContainer {
+    flex-direction: column-reverse;
+    justify-content: end;
+    gap: 30px;
+}
 }
 </style>

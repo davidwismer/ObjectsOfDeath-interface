@@ -1,10 +1,11 @@
 <script setup>
-import { ref, computed, onMounted, watchEffect } from 'vue';
+import { ref, useTemplateRef, computed, onMounted, watchEffect } from 'vue';
 
 import firstQuestionPageVue from './components/firstQuestionPage.vue';
 import secondQuestionPageVue from './components/secondQuestionPage.vue';
 import thanksPageVue from './components/thanksPage.vue';
 import welcomePageVue from './components/welcomePage.vue';
+import resultsPage from './components/resultsPage.vue';
 
 const apiURL = "https://objectsofdeath-api2.onrender.com/"
 const apiURL2 = "https://objectsofdeath-api3.onrender.com/"
@@ -18,35 +19,60 @@ function toggleLanguage(target) {
   language.value = target
 }
 
+let main = useTemplateRef("main")
 function manageButton() {
-  window.scrollTo({ top: 0, behavior: "smooth" })
+  main.value.scrollTo({ top: 0, behavior: "smooth" })
   actualPage.value++
 }
 
-window.onbeforeunload = function(){
+window.onbeforeunload = function () {
+  if (actualPage.value == 2 || actualPage.value == 3) {
     return "Vous perdrez vos réponses si vous rechargez la page";
+  } else {
+    return null
+  }
+
 }
+
+//Manage hash change for component
+const currentPath = ref(window.location.hash)
+window.addEventListener('hashchange', () => {
+  currentPath.value = window.location.hash
+})
 </script>
 
 <template>
-  <main>
+  <main ref="main">
+    <a href="">
+      <h1>Objects of Death</h1>
+    </a>
     <div class="langagePicker">
       <span :class="language == 'fr' ? 'selected' : ''" id="fr" @click="toggleLanguage('fr')">Fr</span>
       <span :class="language == 'en' ? 'selected' : ''" id="en" @click="toggleLanguage('en')">En</span>
     </div>
-    <div v-if="actualPage <= 3 && actualPage > 1" class="pageNumber">
-      <span class="actualPage number">{{ actualPage - 1 }}</span> /
-      <span class="maxPage number">2</span>
-    </div>
-    <welcomePageVue v-if="actualPage == 1" :lang="language" @change-page="manageButton()"></welcomePageVue>
-    <firstQuestionPageVue v-if="actualPage == 2" :lang="language" :apiURL="apiURL" :apiURL2="apiURL2" :apiURL3="apiURL3" @change-page="manageButton()"></firstQuestionPageVue>
-    <secondQuestionPageVue v-if="actualPage == 3" :lang="language" :apiURL="apiURL" :apiURL2="apiURL2" :apiURL3="apiURL3" @change-page="manageButton()">
-    </secondQuestionPageVue>
-    <thanksPageVue v-if="actualPage == 4" :lang="language"></thanksPageVue>
+    <section v-if="currentPath !== '#results'">
+      <div v-if="actualPage <= 3 && actualPage > 1" class="pageNumber">
+        <span class="actualPage number">{{ actualPage - 1 }}</span> /
+        <span class="maxPage number">2</span>
+      </div>
+      <welcomePageVue v-if="actualPage == 1" :lang="language" @change-page="manageButton()"></welcomePageVue>
+      <firstQuestionPageVue v-if="actualPage == 2" :lang="language" :apiURL="apiURL" :apiURL2="apiURL2"
+        :apiURL3="apiURL3" @change-page="manageButton()"></firstQuestionPageVue>
+      <secondQuestionPageVue v-if="actualPage == 3" :lang="language" :apiURL="apiURL" :apiURL2="apiURL2"
+        :apiURL3="apiURL3" @change-page="manageButton()">
+      </secondQuestionPageVue>
+      <thanksPageVue v-if="actualPage == 4" :lang="language"></thanksPageVue>
+    </section>
+    <results-page v-if="currentPath === '#results'"></results-page>
   </main>
 </template>
 
 <style scoped>
+h1 {
+  margin-bottom: 30px;
+  cursor: pointer;
+}
+
 .langagePicker {
   width: 100%;
   display: flex;
