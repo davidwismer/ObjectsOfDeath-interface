@@ -28,7 +28,6 @@ function getPositions() {
     let topPos = ""
     let leftPos = ""
     document.querySelectorAll(".group-container").forEach(group => {
-        console.log(group)
         switch (counter) {
             case 1:
                 topPos = "50%"
