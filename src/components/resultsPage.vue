@@ -242,11 +242,14 @@ img:not(.list),
     transition: 0.5s ease-in-out;
     top: 50%;
     left: 50%;
-    max-height: 100px;
     max-width: 100px;
     width: auto !important;
     height: auto !important;
     transform: translate(-50%, -50%);
+}
+
+img:not(.list) {
+    max-height: 100px;
 }
 
 .answer:not(.list) {
