@@ -8,9 +8,7 @@ import welcomePageVue from './components/welcomePage.vue';
 import resultsPage from './components/resultsPage.vue';
 
 const apiURL = "https://objectsofdeath-api2.onrender.com/"
-const apiURL2 = "https://objectsofdeath-api3.onrender.com/"
-const apiURL3 = "https://objectsofdeath-api4.onrender.com/"
-//const apiURL = 'http://localhost:3000/'
+/* const apiURL = 'http://localhost:3000/' */
 
 const actualPage = ref(1)
 const language = ref("fr")
@@ -46,20 +44,19 @@ window.addEventListener('hashchange', () => {
     <a href="">
       <h1>Objects of Death</h1>
     </a>
-    <div class="langagePicker">
-      <span :class="language == 'fr' ? 'selected' : ''" id="fr" @click="toggleLanguage('fr')">Fr</span>
-      <span :class="language == 'en' ? 'selected' : ''" id="en" @click="toggleLanguage('en')">En</span>
-    </div>
     <section v-if="currentPath !== '#results'">
+      <div class="langagePicker">
+        <span :class="language == 'fr' ? 'selected' : ''" id="fr" @click="toggleLanguage('fr')">Fr</span>
+        <span :class="language == 'en' ? 'selected' : ''" id="en" @click="toggleLanguage('en')">En</span>
+      </div>
       <div v-if="actualPage <= 3 && actualPage > 1" class="pageNumber">
         <span class="actualPage number">{{ actualPage - 1 }}</span> /
         <span class="maxPage number">2</span>
       </div>
       <welcomePageVue v-if="actualPage == 1" :lang="language" @change-page="manageButton()"></welcomePageVue>
-      <firstQuestionPageVue v-if="actualPage == 2" :lang="language" :apiURL="apiURL" :apiURL2="apiURL2"
-        :apiURL3="apiURL3" @change-page="manageButton()"></firstQuestionPageVue>
-      <secondQuestionPageVue v-if="actualPage == 3" :lang="language" :apiURL="apiURL" :apiURL2="apiURL2"
-        :apiURL3="apiURL3" @change-page="manageButton()">
+      <firstQuestionPageVue v-if="actualPage == 2" :lang="language" :apiURL="apiURL" @change-page="manageButton()">
+      </firstQuestionPageVue>
+      <secondQuestionPageVue v-if="actualPage == 3" :lang="language" :apiURL="apiURL" @change-page="manageButton()">
       </secondQuestionPageVue>
       <thanksPageVue v-if="actualPage == 4" :lang="language"></thanksPageVue>
     </section>

@@ -23,6 +23,50 @@ function getWidth(theme) {
     return parseInt(percent * (widthScreen * 1 / 3)) + 50
 }
 
+function getPositions() {
+    let counter = 1
+    let topPos = ""
+    let leftPos = ""
+    document.querySelectorAll(".group-container").forEach(group => {
+        console.log(group)
+        switch (counter) {
+            case 1:
+                topPos = "50%"
+                leftPos = "50%"
+                break;
+            case 2:
+                topPos = "25%"
+                leftPos = "25%"
+                break;
+            case 3:
+                topPos = "22%"
+                leftPos = "75%"
+                break;
+            case 4:
+                topPos = "80%"
+                leftPos = "33%"
+                break;
+            case 5:
+                topPos = "70%"
+                leftPos = "75%"
+                break;
+            case 6:
+                topPos = "53%"
+                leftPos = "10%"
+                break;
+            default:
+                group.style.display = "none"
+                break;
+        }
+        group.style.top = topPos
+        group.style.left = leftPos
+
+        counter++
+        topPos = ""
+        leftPos = ""
+    })
+}
+
 let sortableThemes = computed(() => {
     let tab = []
     for (let theme in props.themes[props.display]) {
@@ -35,7 +79,10 @@ let sortableThemes = computed(() => {
 })
 
 watchEffect(() => {
-    setTimeout(() => emit('finishLoading', sortableThemes.value), 100)
+    setTimeout(() => {
+        getPositions()
+        emit('finishLoading', sortableThemes.value)
+    }, 100)
     props.display
 })
 
@@ -49,7 +96,6 @@ watchEffect(() => {
                 height: `${getWidth(theme[1])}px`
             }">
             <span class="text-container">{{ theme[0].toUpperCase() }}</span>
-
         </div>
     </div>
 </template>
@@ -59,15 +105,15 @@ watchEffect(() => {
     border-radius: 20px;
     padding: 5px;
     background-color: rgba(255, 255, 255, .6);
-
 }
 
 .template-container {
     position: absolute;
     width: calc(100vw - 250px);
-    height: calc(100dvh - 150px);
-    top: 150px;
+    height: calc(100dvh - 100px);
+    top: 100px;
     right: 0;
+    pointer-events: none;
 }
 
 .group-container {
@@ -77,41 +123,8 @@ watchEffect(() => {
     justify-content: center;
     border-radius: 50%;
     color: black;
-    border: 1px red solid;
     text-align: center;
-}
-
-.group-container:first-child {
     top: 45%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.group-container:nth-child(2) {
-    top: 0%;
-    left: 20px;
-}
-
-.group-container:nth-child(3) {
-    top: 0;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.group-container:nth-child(4) {
-    top: 0;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.group-container:nth-child(5) {
-    top: 0%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.group-container:nth-child(6) {
-    top: 0%;
     left: 50%;
     transform: translate(-50%, -50%);
 }

@@ -35,6 +35,7 @@ const emit = defineEmits(["changeDisplay"])
 </template>
 
 <style scoped>
+
 .menu-container {
     position: fixed;
     left: 0;
@@ -63,5 +64,11 @@ const emit = defineEmits(["changeDisplay"])
 
 .currentDisplay{
     transform: translateX(-30px);
+}
+
+@media screen and (max-width: 500px) {
+  .menu-container {
+    display: none;
+  }
 }
 </style>

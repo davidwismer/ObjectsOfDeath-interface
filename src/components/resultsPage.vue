@@ -7,25 +7,29 @@ import { ref, onMounted, watchEffect } from 'vue';
 import { getAllAnswersPerQuestion } from '../utils';
 
 const apiURL = 'https://objectsofdeath-api2.onrender.com/'
-const apiURL2 = 'https://objectsofdeath-api3.onrender.com/'
-const apiURL3 = 'https://objectsofdeath-api4.onrender.com/'
-/* const apiURL = 'http://localhost:3000/'
-const apiURL2 = 'http://localhost:3000/'
-const apiURL3 = 'http://localhost:3000/' */
+/* const apiURL = 'http://localhost:3000/' */
 
 
 const answersQuestion1 = ref()
 const answersQuestion2 = ref()
 async function getAnswers() {
-    answersQuestion1.value = await getAllAnswersPerQuestion(apiURL, apiURL2, apiURL3, 1)
-    answersQuestion2.value = await getAllAnswersPerQuestion(apiURL, apiURL2, apiURL3, 2)
+    answersQuestion1.value = await getAllAnswersPerQuestion(apiURL, 1)
+    answersQuestion2.value = await getAllAnswersPerQuestion(apiURL, 2)
 }
 onMounted(async () => {
     await getAnswers()
     getThemesOfAnswers()
-    getInitialStyleProperties()
+    /* getInitialStyleProperties() */
 
 })
+
+function getCategory(answer) {
+    if (answer !== undefined) {
+        if (answer[0] !== undefined) {
+            return answer[0].split(' ').join('')
+        }
+    }
+}
 
 //Extract the themes of each answers from the big array
 let allThemes = {}
@@ -64,7 +68,7 @@ function getThemesOfAnswers() {
     }
 }
 
-function getInitialStyleProperties() {
+/* function getInitialStyleProperties() {
     document.querySelectorAll("img.image").forEach(image => {
         image.style.top = `${image.getBoundingClientRect().top}px`
         image.style.left = `${image.getBoundingClientRect().left}px`
@@ -75,7 +79,7 @@ function getInitialStyleProperties() {
         answer.style.left = `${answer.getBoundingClientRect().left}px`
         answer.style.width = `${answer.getBoundingClientRect().width}px`
     })
-}
+} */
 
 //Manage display of the results
 const display = ref("list")
@@ -85,20 +89,30 @@ function changeDisplay(newDisplay) {
 
 //Set position of the answers
 function setPositionOfAnswers(sortableThemes) {
-    sortableThemes.forEach(theme => {
-        let themeWithoutSpace = theme[0]
-        if (themeWithoutSpace.indexOf(' ') >= 0) {
-            themeWithoutSpace = themeWithoutSpace.split(' ').join('')
-        }
-        let themedAnswers = document.querySelectorAll(`.${themeWithoutSpace} .answer, .${themeWithoutSpace} .image`)
-        let xMinMax = getXMinMaxCircle(themeWithoutSpace)
-        let yMinMax = getYMinMaxCircle(themeWithoutSpace)
-        themedAnswers.forEach(answer => {
-            //Go where the theme circle is but random
-            answer.style.left = `${randomInt(xMinMax[0], xMinMax[1])}px`
-            answer.style.top = `${randomInt(yMinMax[0], yMinMax[1])}px`
-        })
+    document.querySelectorAll("img.image").forEach(image => {
+        image.style.top = ``
+        image.style.left = ``
     })
+    document.querySelectorAll(".answer").forEach(answer => {
+        answer.style.top = ``
+        answer.style.left = ``
+    })
+    setTimeout(() => {
+        sortableThemes.forEach(theme => {
+            let themeWithoutSpace = theme[0]
+            if (themeWithoutSpace.indexOf(' ') >= 0) {
+                themeWithoutSpace = themeWithoutSpace.split(' ').join('')
+            }
+            let themedAnswers = document.querySelectorAll(`.${themeWithoutSpace} .answer, .${themeWithoutSpace} .image`)
+            let xMinMax = getXMinMaxCircle(themeWithoutSpace)
+            let yMinMax = getYMinMaxCircle(themeWithoutSpace)
+            themedAnswers.forEach(answer => {
+                //Go where the theme circle is but random
+                answer.style.left = `${randomInt(xMinMax[0], xMinMax[1])}px`
+                answer.style.top = `${randomInt(yMinMax[0], yMinMax[1])}px`
+            })
+        })
+    }, 1000)
 }
 
 function randomInt(min, max) { // min and max included 
@@ -125,12 +139,12 @@ function getYMinMaxCircle(theme) {
         <graph-menu @change-display="changeDisplay" :currentDisplay="display"></graph-menu>
         <div class="questionContainer" :class="display">
             <h3 v-if="display == 'list'">« Quel objet apporterais-tu dans la mort ? »</h3>
-            <div class="answerContainer"
-                :class="`${display} ${answerQuestion1[display] !== undefined ? answerQuestion1[display][0].split(' ').join('') : '' }`"
+            <div class="answerContainer" :class="`${display} ${getCategory(answerQuestion1[display])}`"
                 :id="answerQuestion1._id" v-for="(answerQuestion1) in answersQuestion1">
                 <div class="photoContainer" :class="display">
                     <span class="answer" :class="display">{{ answerQuestion1.answer }}</span>
-                    <img v-if="answerQuestion1.image" :src="answerQuestion1.image.base64" class="image"
+                    <img v-if="answerQuestion1.image"
+                        :src="`${apiURL}uploads/${answerQuestion1._id}-${answerQuestion1.image}`" class="image"
                         :class="display" />
                 </div>
                 <div class="commentContainer" :class="display">
@@ -140,12 +154,12 @@ function getYMinMaxCircle(theme) {
         </div>
         <div class="questionContainer" :class="display">
             <h3 v-if="display == 'list'">« Par quel objet se souviendra-t-on de toi après ta mort ? »</h3>
-            <div class="answerContainer"
-                :class="`${display} ${answerQuestion2[display] !== undefined ? answerQuestion2[display][0].split(' ').join('') : '' }`"
+            <div class="answerContainer" :class="`${display} ${getCategory(answerQuestion2[display])}`"
                 :id="answerQuestion2._id" v-for="(answerQuestion2) in answersQuestion2">
                 <div class="photoContainer" :class="display">
                     <span class="answer" :class="display">{{ answerQuestion2.answer }}</span>
-                    <img v-if="answerQuestion2.image" :src="answerQuestion2.image.base64" class="image"
+                    <img v-if="answerQuestion2.image"
+                        :src="`${apiURL}uploads/${answerQuestion2._id}-${answerQuestion2.image}`" class="image"
                         :class="display" />
                 </div>
                 <div class="commentContainer" :class="display">

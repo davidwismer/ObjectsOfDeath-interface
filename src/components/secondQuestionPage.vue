@@ -10,12 +10,6 @@ const props = defineProps({
     },
     apiURL: {
         type: String
-    },
-    apiURL2: {
-        type: String
-    },
-    apiURL3: {
-        type: String
     }
 })
 
@@ -29,18 +23,6 @@ const emit = defineEmits(["changePage"])
 
 function fileHandler(e) {
     image.value = e.target.files[0]
-    const reader = new FileReader()
-
-    reader.onload = (event) => {
-
-        image.value = {
-            base64: event.target.result,
-            name: image.value.name,
-            size: image.value.size,
-            type: image.value.type,
-        }
-    };
-    reader.readAsDataURL(image.value);
 }
 
 const deactivateButton = ref(false)
@@ -51,9 +33,9 @@ async function changePage() {
             questionNumber: questionNumber,
             answer: answer.value,
             comment: comment.value,
-            image: image.value
+            image: image.value.name
         }
-        console.log(answerParams)
+        //POST ANSWER
         try {
             await fetch(`${props.apiURL}answers`,
                 {
@@ -66,44 +48,31 @@ async function changePage() {
                 })
                 .then((response) => response.json())
                 .then(async (json) => {
-                    emit('changePage')
+                    await uploadImage(json._id)
                 });
         } catch (error) {
-            try {
-                await fetch(`${props.apiURL2}answers`,
-                    {
-                        method: "POST",
-                        body: JSON
-                            .stringify(answerParams),
-                        headers: {
-                            "Content-type": "application/json",
-                        },
-                    })
-                    .then((response) => response.json())
-                    .then(async (json) => {
-                        emit('changePage')
-                    });
-            } catch (error) {
-                try {
-                    await fetch(`${props.apiURL3}answers`,
-                        {
-                            method: "POST",
-                            body: JSON
-                                .stringify(answerParams),
-                            headers: {
-                                "Content-type": "application/json",
-                            },
-                        })
-                        .then((response) => response.json())
-                        .then(async (json) => {
-                            emit('changePage')
-                        });
-                } catch (error) {
-                    return console.log(error)
-                }
-            }
+            console.log(error)
         }
         deactivateButton.value = false
+    }
+}
+
+async function uploadImage(answerId) {
+    const renamedFile = new File([image.value], `${answerId}-${image.value.name}`);
+    const formData = new FormData();
+    formData.append("image", renamedFile);
+    //upload image
+    try {
+        await fetch(`${props.apiURL}upload`,
+            {
+                method: "POST",
+                body: formData
+            })
+            .then(async () => {
+                emit('changePage')
+            });
+    } catch (error) {
+        console.log(error)
     }
 }
 
