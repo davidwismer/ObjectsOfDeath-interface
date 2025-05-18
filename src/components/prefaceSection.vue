@@ -4,7 +4,6 @@
 
 <template>
     <section class="preface-section-container">
-        <h3>Préface</h3>
         <div class="text-container">
             <p>
                 Quand mon grand père est mort ( le premier mort que j'ai physiquement vu ), on a mis son chapeau dans
@@ -47,7 +46,8 @@
                 l’histoire, de l’essence de la personne. Ils sont aussi des résistances symboliques : face au silence de
                 la mort, ils parlent. Face à la disparition, ils persistent. <br>
                 Chercher à survivre dans l’objet, c’est peut-être aussi refuser que tout s’éteigne. Mais c’est aussi
-                admettre qu’un reste suffit. Qu’un reste peut dire tout. Mais à quoi bon vouloir être encore là, après ? <br>
+                admettre qu’un reste suffit. Qu’un reste peut dire tout. Mais à quoi bon vouloir être encore là, après ?
+                <br>
                 Est-ce que ce désir de mémoire est une preuve d’amour... ou une forme d’arrogance ? <br>
                 Une tentative de contrôler ce qui, par essence, nous échappe ? <br>
                 Je me demande souvent si l’objet posthume est un cri ou une caresse. Un monument égoïste ou une
@@ -78,9 +78,7 @@ p {
     color: rgba(0, 0, 0, .3);
     margin-bottom: 20px;
     text-wrap: pretty;
-}
-
-h3 {
-    margin-bottom: 20px;
+    text-align: center;
+    margin-top: 15px;
 }
 </style>

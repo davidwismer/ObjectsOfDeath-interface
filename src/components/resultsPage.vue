@@ -70,19 +70,6 @@ function getThemesOfAnswers() {
     }
 }
 
-/* function getInitialStyleProperties() {
-    document.querySelectorAll("img.image").forEach(image => {
-        image.style.top = `${image.getBoundingClientRect().top}px`
-        image.style.left = `${image.getBoundingClientRect().left}px`
-        image.style.width = `${image.getBoundingClientRect().width}px`
-    })
-    document.querySelectorAll(".answer").forEach(answer => {
-        answer.style.top = `${answer.getBoundingClientRect().top}px`
-        answer.style.left = `${answer.getBoundingClientRect().left}px`
-        answer.style.width = `${answer.getBoundingClientRect().width}px`
-    })
-} */
-
 //Manage display of the results
 const display = ref("list")
 function changeDisplay(newDisplay) {

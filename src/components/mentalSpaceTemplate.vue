@@ -54,7 +54,8 @@ function getPositions() {
                 leftPos = "10%"
                 break;
             default:
-                group.style.display = "none"
+                topPos = "-1000px"
+                leftPos = "-1000px"
                 break;
         }
         group.style.top = topPos
@@ -77,6 +78,20 @@ let sortableThemes = computed(() => {
     return tab
 })
 
+function selectSpecificGroup(theme) {
+    document.querySelectorAll(".group-container").forEach(group => {
+        if (group.id === theme) {
+            group.style.top = "50%"
+            group.style.left = "50%"
+            group.style.width = "calc(100dvh - 150px)"
+            group.style.height = "calc(100dvh - 150px)"
+            
+        } else {
+            group.style.display = "none"
+        }
+    })
+}
+
 watchEffect(() => {
     setTimeout(() => {
         getPositions()
@@ -94,7 +109,8 @@ watchEffect(() => {
                 width: `${getWidth(theme[1])}px`,
                 height: `${getWidth(theme[1])}px`
             }">
-            <span class="text-container">{{ theme[0].toUpperCase() }}</span>
+            <span class="text-container" @click="selectSpecificGroup(theme[0].split(' ').join(''))">{{
+                theme[0].toUpperCase() }}</span>
         </div>
     </div>
 </template>
@@ -104,6 +120,7 @@ watchEffect(() => {
     border-radius: 20px;
     padding: 5px;
     background-color: rgba(255, 255, 255, .6);
+    cursor: pointer;
 }
 
 .template-container {
@@ -112,7 +129,6 @@ watchEffect(() => {
     height: calc(100dvh - 100px);
     top: 100px;
     right: 0;
-    pointer-events: none;
 }
 
 .group-container {
