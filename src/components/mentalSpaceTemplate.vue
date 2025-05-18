@@ -78,18 +78,27 @@ let sortableThemes = computed(() => {
     return tab
 })
 
-function selectSpecificGroup(theme) {
+function selectSpecificGroup(theme, value) {
+    let selectedGroup = document.getElementById(theme.split(' ').join(''))
     document.querySelectorAll(".group-container").forEach(group => {
-        if (group.id === theme) {
-            group.style.top = "50%"
-            group.style.left = "50%"
-            group.style.width = "calc(100dvh - 150px)"
-            group.style.height = "calc(100dvh - 150px)"
-            
-        } else {
+        if (group.id !== theme.split(' ').join('') && selectedGroup.classList.contains("selected")) {
+            group.style.display = "flex"
+        } else if (group.id !== theme.split(' ').join('') && !selectedGroup.classList.contains("selected")) {
             group.style.display = "none"
         }
     })
+    if (selectedGroup.classList.contains("selected")) {
+        selectedGroup.classList.remove("selected")
+        getPositions()
+        selectedGroup.style.width = `${getWidth(value)}px`
+        selectedGroup.style.height = `${getWidth(value)}px`
+    } else {
+        selectedGroup.classList.add("selected")
+        selectedGroup.style.top = "50%"
+        selectedGroup.style.left = "50%"
+        selectedGroup.style.width = "calc(100dvh - 150px)"
+        selectedGroup.style.height = "calc(100dvh - 150px)"
+    }
 }
 
 watchEffect(() => {
@@ -109,7 +118,7 @@ watchEffect(() => {
                 width: `${getWidth(theme[1])}px`,
                 height: `${getWidth(theme[1])}px`
             }">
-            <span class="text-container" @click="selectSpecificGroup(theme[0].split(' ').join(''))">{{
+            <span class="text-container" @click="selectSpecificGroup(theme[0], theme[1])">{{
                 theme[0].toUpperCase() }}</span>
         </div>
     </div>
