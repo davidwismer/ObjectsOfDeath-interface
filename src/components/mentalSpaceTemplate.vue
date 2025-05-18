@@ -95,7 +95,7 @@ function selectSpecificGroup(theme, value) {
         selectedGroup.classList.add("selected")
         selectedGroup.style.top = "50%"
         selectedGroup.style.left = "50%"
-        selectedGroup.style.width = "calc(100dvh - 200px)"
+        selectedGroup.style.width = "calc(100dvw - 450px)"
         selectedGroup.style.height = "calc(100dvh - 200px)"
     }
     emit('finishLoading', sortableThemes.value)

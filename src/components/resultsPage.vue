@@ -96,14 +96,16 @@ function setPositionOfAnswers(sortableThemes) {
             let xMinMax = getXMinMaxCircle(themeWithoutSpace)
             let yMinMax = getYMinMaxCircle(themeWithoutSpace)
             themedAnswers.forEach(answer => {
-                if (index <= 5) {
+                if (document.getElementById(themeWithoutSpace).style.display !== "none") {
                     //Go where the theme circle is but random
-                    answer.style.display = "block"
+                    answer.style.transition = ""
+                    answer.style.visibility = "visible"
                     answer.style.left = `${randomInt(xMinMax[0], xMinMax[1])}px`
                     answer.style.top = `${randomInt(yMinMax[0], yMinMax[1])}px`
                 } else {
                     //Hide the answer
-                    answer.style.display = "none"
+                    answer.style.transition = "0s"
+                    answer.style.visibility = "hidden"
                 }
             })
         })
