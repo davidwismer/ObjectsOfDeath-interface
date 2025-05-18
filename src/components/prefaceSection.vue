@@ -62,8 +62,7 @@
             <p>
                 Si je ne devais emporter qu’un objet, je ne sais pas encore lequel je choisirais. Mais je sais que je
                 veux qu’il parle de moi sans me contenir tout entière. Juste une étincelle. Un fragment. Un morceau
-                de&nbsp;silence. <br>
-                Ce projet n’apporte pas de réponse définitive. Il ouvre un espace. Il fait de la mort une conversation
+                de silence. Ce projet n’apporte pas de réponse définitive. Il ouvre un espace. Il fait de la mort une conversation
                 plutôt qu’un&nbsp;tabou.
             </p>
             <p style="text-align: center;">
