@@ -54,8 +54,7 @@ function getPositions() {
                 leftPos = "10%"
                 break;
             default:
-                topPos = "-1000px"
-                leftPos = "-1000px"
+                group.style.display = "none"
                 break;
         }
         group.style.top = topPos
@@ -96,16 +95,33 @@ function selectSpecificGroup(theme, value) {
         selectedGroup.classList.add("selected")
         selectedGroup.style.top = "50%"
         selectedGroup.style.left = "50%"
-        selectedGroup.style.width = "calc(100dvh - 150px)"
-        selectedGroup.style.height = "calc(100dvh - 150px)"
+        selectedGroup.style.width = "calc(100dvh - 200px)"
+        selectedGroup.style.height = "calc(100dvh - 200px)"
     }
+    emit('finishLoading', sortableThemes.value)
+}
+
+function deselectGroupFocus() {
+    let selectedGroup = document.querySelector(".selected")
+    if (selectedGroup) selectedGroup.classList.remove("selected")
+    document.querySelectorAll(".group-container").forEach(group => {
+        group.style.display = "flex"
+    })
+}
+
+function appearAllAnswers() {
+    document.querySelectorAll(`.answer, .image`).forEach(answer => {
+        answer.style.display = "block"
+    })
 }
 
 watchEffect(() => {
     setTimeout(() => {
+        appearAllAnswers()
+        deselectGroupFocus()
         getPositions()
         emit('finishLoading', sortableThemes.value)
-    }, 100)
+    }, 50)
     props.display
 })
 

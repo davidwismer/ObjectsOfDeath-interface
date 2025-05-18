@@ -87,7 +87,7 @@ function setPositionOfAnswers(sortableThemes) {
         answer.style.left = ``
     })
     setTimeout(() => {
-        sortableThemes.forEach(theme => {
+        sortableThemes.forEach((theme, index) => {
             let themeWithoutSpace = theme[0]
             if (themeWithoutSpace.indexOf(' ') >= 0) {
                 themeWithoutSpace = themeWithoutSpace.split(' ').join('')
@@ -96,12 +96,18 @@ function setPositionOfAnswers(sortableThemes) {
             let xMinMax = getXMinMaxCircle(themeWithoutSpace)
             let yMinMax = getYMinMaxCircle(themeWithoutSpace)
             themedAnswers.forEach(answer => {
-                //Go where the theme circle is but random
-                answer.style.left = `${randomInt(xMinMax[0], xMinMax[1])}px`
-                answer.style.top = `${randomInt(yMinMax[0], yMinMax[1])}px`
+                if (index <= 5) {
+                    //Go where the theme circle is but random
+                    answer.style.display = "block"
+                    answer.style.left = `${randomInt(xMinMax[0], xMinMax[1])}px`
+                    answer.style.top = `${randomInt(yMinMax[0], yMinMax[1])}px`
+                } else {
+                    //Hide the answer
+                    answer.style.display = "none"
+                }
             })
         })
-    }, 1000)
+    }, 0)
 }
 
 function randomInt(min, max) { // min and max included 
@@ -126,7 +132,7 @@ function getYMinMaxCircle(theme) {
 <template>
     <section class="results-page">
         <graph-menu @change-display="changeDisplay" :currentDisplay="display"></graph-menu>
-        <div  v-if="display !== 'preface'" class="questionContainer" :class="display">
+        <div v-if="display !== 'preface'" class="questionContainer" :class="display">
             <h3 v-if="display == 'list'">« Quel objet apporterais-tu dans la mort ? »</h3>
             <div class="answerContainer" :class="`${display} ${getCategory(answerQuestion1[display])}`"
                 :id="answerQuestion1._id" v-for="(answerQuestion1) in answersQuestion1">
@@ -156,7 +162,7 @@ function getYMinMaxCircle(theme) {
                 </div>
             </div>
         </div>
-        <mental-space-template v-if="display !== 'list' || display !== 'preface'" :display="display" :themes="allThemes"
+        <mental-space-template v-if="display !== 'preface'" :display="display" :themes="allThemes"
             @finish-loading="setPositionOfAnswers"></mental-space-template>
         <preface-section v-if="display === 'preface'"></preface-section>
     </section>

@@ -63,7 +63,7 @@
                 Ce projet n’apporte pas de réponse définitive. Il ouvre un espace. Il fait de la mort une conversation
                 plutôt qu’un tabou.
             </p>
-            <p>
+            <p style="text-align: center;">
                 Peut-être que c’est ça, la mémoire. <br>
                 Une trace assez faible pour être oubliée. <br>
                 Assez forte pour revenir.
@@ -78,7 +78,6 @@ p {
     color: rgba(0, 0, 0, .3);
     margin-bottom: 20px;
     text-wrap: pretty;
-    text-align: center;
     margin-top: 15px;
 }
 </style>
