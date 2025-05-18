@@ -45,7 +45,7 @@ window.addEventListener('hashchange', () => {
       <h1>Objects of Death</h1>
     </a>
     <section v-if="currentPath !== '#results'">
-      <div class="langagePicker">
+      <div class="langagePicker" style="display: none;">
         <span :class="language == 'fr' ? 'selected' : ''" id="fr" @click="toggleLanguage('fr')">Fr</span>
         <span :class="language == 'en' ? 'selected' : ''" id="en" @click="toggleLanguage('en')">En</span>
       </div>

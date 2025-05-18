@@ -3,22 +3,28 @@ const props = defineProps({
     id: {
         type: String
     },
+    backgroundColor: {
+        type: String,
+        default: "rgba(0, 0, 0, .1)"
+    },
+    borderColor: {
+        type: String,
+        default: "rgba(0, 0, 0, .3)"
+    }
 })
 
 const emit = defineEmits(['update:modelValue'])
-
+console.log(props.backgroundColor)
 </script>
 
 <template>
-    <button :id="props.id">
+    <button :id="props.id" :style="{backgroundColor: `${props.backgroundColor}`, border: `1pt solid ${props.borderColor}`}">
         <slot />
     </button>
 </template>
 
 <style scoped>
 button {
-    border: 1pt solid rgba(0, 0, 0, .3);
-    background-color: rgba(0, 0, 0, .1);
     color: rgba(0, 0, 0, .3);
     border-radius: 1pt;
     font-size: 15pt;

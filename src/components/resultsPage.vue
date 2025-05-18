@@ -1,10 +1,12 @@
 <script setup>
 import graphMenu from "./graphMenu.vue"
 import mentalSpaceTemplate from "./mentalSpaceTemplate.vue";
+import prefaceSection from "./prefaceSection.vue"
 
 import { ref, onMounted, watchEffect } from 'vue';
 
 import { getAllAnswersPerQuestion } from '../utils';
+import prefaceSectionVue from "./prefaceSection.vue";
 
 const apiURL = 'https://objectsofdeath-api2.onrender.com/'
 /* const apiURL = 'http://localhost:3000/' */
@@ -137,7 +139,7 @@ function getYMinMaxCircle(theme) {
 <template>
     <section class="results-page">
         <graph-menu @change-display="changeDisplay" :currentDisplay="display"></graph-menu>
-        <div class="questionContainer" :class="display">
+        <div  v-if="display !== 'preface'" class="questionContainer" :class="display">
             <h3 v-if="display == 'list'">« Quel objet apporterais-tu dans la mort ? »</h3>
             <div class="answerContainer" :class="`${display} ${getCategory(answerQuestion1[display])}`"
                 :id="answerQuestion1._id" v-for="(answerQuestion1) in answersQuestion1">
@@ -152,7 +154,7 @@ function getYMinMaxCircle(theme) {
                 </div>
             </div>
         </div>
-        <div class="questionContainer" :class="display">
+        <div v-if="display !== 'preface'" class="questionContainer" :class="display">
             <h3 v-if="display == 'list'">« Par quel objet se souviendra-t-on de toi après ta mort ? »</h3>
             <div class="answerContainer" :class="`${display} ${getCategory(answerQuestion2[display])}`"
                 :id="answerQuestion2._id" v-for="(answerQuestion2) in answersQuestion2">
@@ -167,8 +169,9 @@ function getYMinMaxCircle(theme) {
                 </div>
             </div>
         </div>
-        <mental-space-template v-if="display !== 'list'" :display="display" :themes="allThemes"
+        <mental-space-template v-if="display !== 'list' || display !== 'preface'" :display="display" :themes="allThemes"
             @finish-loading="setPositionOfAnswers"></mental-space-template>
+        <preface-section v-if="display === 'preface'"></preface-section>
     </section>
 </template>
 

@@ -13,6 +13,9 @@ const emit = defineEmits(["changeDisplay"])
 
 <template>
     <div class="menu-container">
+        <div class="button-container" :class="props.currentDisplay === 'preface' ? 'currentDisplay' : ''">
+            <base-button @click="$emit('changeDisplay', 'preface')" :backgroundColor="'rgb(255, 36, 14, 0.1)'" :borderColor="'rgb(255, 36, 14, 0.3)'">Préface</base-button>
+        </div>
         <div class="button-container" :class="props.currentDisplay === 'list' ? 'currentDisplay' : ''">
             <base-button @click="$emit('changeDisplay', 'list')">Liste</base-button>
         </div>
@@ -65,6 +68,8 @@ const emit = defineEmits(["changeDisplay"])
 .currentDisplay{
     transform: translateX(-30px);
 }
+
+
 
 @media screen and (max-width: 500px) {
   .menu-container {
